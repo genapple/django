@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.contrib import  auth
 from django.http import HttpResponse,HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from sign.models import Event
 def index(request):
     return  render(request,"index.html")
 def login_action(request):
@@ -28,6 +30,7 @@ def login_action(request):
     else:
         return HttpResponse('must  post of method')
 #发布会管理
+@login_required
 def event_manage(request):
     username=request.session.get('user','')#读取浏览器cookie
     # username=request.COOKIES.get('user','')#读取浏览器cookie
